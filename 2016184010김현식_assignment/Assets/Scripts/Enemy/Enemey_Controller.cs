@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class Enemey_Controller : MoveStatus
 {
-   
+  
     private bool attacked = false;
-
-
-
 
     [Header("맞는 파티클 시스템")]
     [SerializeField] ParticleSystem ps_Attacked = null;

@@ -18,8 +18,8 @@ TagManager:
   - Attack
   - CanAttackThing
   - Player
-  - 
-  - 
+  - FallingChecker
+  - CheckPoint
   - 
   - 
   - 

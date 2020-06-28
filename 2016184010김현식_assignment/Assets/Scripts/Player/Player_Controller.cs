@@ -69,6 +69,11 @@ public class Player_Controller : MoveStatus
 
     //private GameObject go_AttackTriger = null;
 
+    [Header("체크포인트 파티클시스템")]
+    [SerializeField] ParticleSystem ps_CheckPoint = null;
+
+    [Header("되살아 나는 좌표(처음은 시작좌표)")]
+    [SerializeField] float[] loadXY = { 0, 0 };
 
 
 
@@ -126,13 +131,31 @@ public class Player_Controller : MoveStatus
             LastTouchRigi = collision.transform.GetComponent<Rigidbody2D>();
         }
 
-        else if (collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
             isHurt = true;
             rigidbody.AddForce( new Vector2(-1 * Input.GetAxisRaw("Horizontal") * hurtForcex, hurtForcey), ForceMode2D.Impulse);
             animator.SetBool("IsHurt", true);
+
+            if (currentHp == 0)
+                reBorn();
         }
 
+        else if(collision.gameObject.layer == LayerMask.NameToLayer("FallingChecker"))
+        {
+            reBorn();
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        // 체크포인트 
+        if (collider.gameObject.layer == LayerMask.NameToLayer("CheckPoint"))
+        {
+            loadXY[0] = collider.gameObject.transform.position.x;
+            loadXY[1] = collider.gameObject.transform.position.y;
+            ps_CheckPoint.Play();
+        }
     }
 
     /// <summary>
@@ -452,6 +475,21 @@ public class Player_Controller : MoveStatus
             wallCount -= Time.deltaTime;
         }
     }
+
+    /////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+
+
+    private void reBorn()
+    {
+        rigidbody.position = new Vector2(loadXY[0], loadXY[1]);
+        currentHp = maxHp;
+    }
+
+
+
+
 
 
 
