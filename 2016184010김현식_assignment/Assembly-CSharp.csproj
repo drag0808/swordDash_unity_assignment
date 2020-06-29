@@ -69,6 +69,8 @@
     <Compile Include="Assets\Scripts\MapGimmick\CheckPoint.cs" />
     <Compile Include="Assets\Scripts\MapGimmick\JumpPanel.cs" />
     <Compile Include="Assets\Scripts\MapGimmick\MovingBlock_EnterBlock.cs" />
+    <Compile Include="Assets\Scripts\Mgr\Timer.cs" />
+    <Compile Include="Assets\Scripts\Mgr\UiManager.cs" />
     <Compile Include="Assets\Scripts\MoveStatus.cs" />
     <Compile Include="Assets\Scripts\Player\Player_AttackCheck.cs" />
     <Compile Include="Assets\Scripts\Player\Player_Controller.cs" />

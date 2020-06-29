@@ -137,6 +137,7 @@ public class Player_Controller : MoveStatus
             rigidbody.AddForce( new Vector2(-1 * Input.GetAxisRaw("Horizontal") * hurtForcex, hurtForcey), ForceMode2D.Impulse);
             animator.SetBool("IsHurt", true);
 
+            currentHp--;
             if (currentHp == 0)
                 reBorn();
         }
@@ -511,5 +512,10 @@ public class Player_Controller : MoveStatus
         return moveSpeed;
     }
 
+    public int[] getDashAndHp()
+    {
+        int[] returnNums = { DashCount, currentHp };
+        return returnNums;
+    }
 }
 
