@@ -63,13 +63,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scenes\startSceneController.cs" />
     <Compile Include="Assets\Scripts\Cmera\Camera_Controller.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemey_Controller.cs" />
     <Compile Include="Assets\Scripts\MapGimmick\CheckPoint.cs" />
     <Compile Include="Assets\Scripts\MapGimmick\JumpPanel.cs" />
     <Compile Include="Assets\Scripts\MapGimmick\MovingBlock_EnterBlock.cs" />
-    <Compile Include="Assets\Scripts\Mgr\Timer.cs" />
+    <Compile Include="Assets\Scripts\Mgr\DontDestroyOnLoadSetting.cs" />
+    <Compile Include="Assets\Scripts\Mgr\SceneController.cs" />
+    <Compile Include="Assets\Scripts\Mgr\ScoreManager.cs" />
+    <Compile Include="Assets\Scripts\Mgr\ScorePrintManager.cs" />
     <Compile Include="Assets\Scripts\Mgr\UiManager.cs" />
     <Compile Include="Assets\Scripts\MoveStatus.cs" />
     <Compile Include="Assets\Scripts\Player\Player_AttackCheck.cs" />

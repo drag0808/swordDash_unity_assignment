@@ -16,33 +16,81 @@ public class UiManager : MonoBehaviour
 
     private int[] nowStat = {0,0};
 
-    // Start is called before the first frame update
+
+    [SerializeField] private GameObject Img_rePlay;
+
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+    //////  타이머
+
+    [Header("타이머 표시 text UI")]
+    [SerializeField] private Text timerText;
+
+    public bool timerOn = true;
+    public float totalTime = 0f;
+
+    private int minute = 0;
+    private int second = 0;
+    private int tic = 0;
+
+    ///////////////////////////////////////
+    ///////////////////////////////////////
+
+    [Header("스코어메니저(안지울 오브젝트)")]
+    [SerializeField] GameObject ScoreManager;
+    ScoreManager scoreManager;
+
+    
+    [SerializeField] private InputField InputName;
+
+    [SerializeField] bool isPlay;
+
+
     void Start()
     {
         player_Controller = GameObject.Find("Player").GetComponent<Player_Controller>();
-
         dash_1 = GameObject.Find("dash_1");
         dash_2 = GameObject.Find("dash_2");
-
         hp_1 = GameObject.Find("hp_1");
         hp_2 = GameObject.Find("hp_2");
-        hp_3 = GameObject.Find("hp_3");
-
+        hp_3 = GameObject.Find("hp_3");     
 
         nowStat = player_Controller.getDashAndHp();
+
+
+        ScoreManager = GameObject.Find("scoreManager");
+        scoreManager = ScoreManager.GetComponent<ScoreManager>();
+
+        isPlay = true;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (nowStat != player_Controller.getDashAndHp())
+        //print(isPlay);
+        if(isPlay)
         {
-            nowStat = player_Controller.getDashAndHp();
-            setUI();
+            //  대시, 체력 UI 표시
+            if (nowStat != player_Controller.getDashAndHp())
+            {
+                nowStat = player_Controller.getDashAndHp();
+                setUI();
+            }
+
+            //  타이머 
+            if (timerOn)
+            {
+                totalTime += Time.deltaTime;
+            }
+            timerText.text = TimerCalc();
         }
 
     }
 
+
+
+    ////    체력, 대시 UI 업데이트
     void setUI()
     {
         // 대시
@@ -81,6 +129,47 @@ public class UiManager : MonoBehaviour
             hp_2.SetActive(false);
             hp_3.SetActive(true);
         }
+    }
+
+
+
+    ////    타이머 표시
+    private string TimerCalc()
+    {
+        tic = (int)((totalTime % 1) * 100);
+        second = (int)totalTime % 60;
+        minute = (int)totalTime / 60;
+
+        if (second < 10)
+            return minute + " : 0" + second + " : " + tic;
+        return minute + " : " + second + " : " + tic;
+    }
+    
+    public void raceEnd()
+    {
+        timerOn = false;
+        print("레이스 끝");
+        Img_rePlay.SetActive(true);
+    }
+
+    public void saveData()
+    {
+        scoreManager.scoreSave();
+    }
+
+
+    public float getScore()
+    {
+        return totalTime;
+    }
+    public string getName()
+    {
+        return InputName.text;
+    }
+
+    public void setIsPlay(bool stat)
+    {
+        isPlay = stat;
     }
 
 }

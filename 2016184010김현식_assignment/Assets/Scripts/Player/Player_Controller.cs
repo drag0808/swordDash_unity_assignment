@@ -76,6 +76,11 @@ public class Player_Controller : MoveStatus
     [SerializeField] float[] loadXY = { 0, 0 };
 
 
+    UiManager UiManager;
+
+    [SerializeField] bool isPlay = true;
+
+
 
     void Start()
     {
@@ -90,6 +95,10 @@ public class Player_Controller : MoveStatus
 
         anim_AttackR = go_AttackPrinter_R.GetComponent<Animator>();
         anim_AttackL = go_AttackPrinter_L.GetComponent<Animator>();
+
+        UiManager = GameObject.Find("Canvas").GetComponent<UiManager>();
+
+
     }
 
     // Update is called once per frame
@@ -98,8 +107,11 @@ public class Player_Controller : MoveStatus
         rigidbody.WakeUp();// 충돌 오류 없게 한번 체크
 
         LandingCheck();
-
-        if (!isHurt)
+        if (!isPlay)
+        {
+            
+        }
+        else if (!isHurt)
         {
             WallGrabCheck();
             jump();
@@ -110,10 +122,15 @@ public class Player_Controller : MoveStatus
 
     private void FixedUpdate()
     {
-        if (!isHurt)
+        if (!isPlay)
+        {
+
+        }
+
+        else if (!isHurt)
             isRun();
 
-        if (isHurt)
+        else if (isHurt)
             IsHurt();
 
     }
@@ -122,8 +139,6 @@ public class Player_Controller : MoveStatus
     {
         LastTouchCollision = collision;
         GameObject touchObject = collision.gameObject;
-
-        Debug.LogError(collision.gameObject.name);
 
         if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
@@ -156,6 +171,13 @@ public class Player_Controller : MoveStatus
             loadXY[0] = collider.gameObject.transform.position.x;
             loadXY[1] = collider.gameObject.transform.position.y;
             ps_CheckPoint.Play();
+        }
+
+        // 게임 끝
+        if(collider.gameObject.layer == LayerMask.NameToLayer("EndPoint"))
+        {
+            UiManager.raceEnd();
+            isPlay = false;
         }
     }
 

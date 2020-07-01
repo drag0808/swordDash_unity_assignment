@@ -14,18 +14,18 @@ public class MovingBlock_EnterBlock : MonoBehaviour
     Player_Controller player_Controller = null;
 
     [Header("움직임 스피드")]
-    [SerializeField] float moveSpeed;// 움직임스피드
+    [SerializeField] float moveSpeed = 0;// 움직임스피드
     [Header("이동 거리 X")]
-    [SerializeField] float moveToX;
+    [SerializeField] float moveToX = 0;
     [Header("이동 거리 Y")]
-    [SerializeField] float moveToY;
+    [SerializeField] float moveToY = 0;
 
     [SerializeField] bool isMove = false;
     [SerializeField] bool isEnd = false;
 
-    Vector2 endPos;
-    Vector2 originPos;
-    Vector2 backPos;
+    Vector2 endPos = Vector2.zero;
+    Vector2 originPos = Vector2.zero;
+    Vector2 backPos = Vector2.zero;
 
     private void Awake()
     {
