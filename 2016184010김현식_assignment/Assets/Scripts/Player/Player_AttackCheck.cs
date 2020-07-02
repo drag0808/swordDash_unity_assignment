@@ -26,7 +26,7 @@ public class Player_AttackCheck : MonoBehaviour
         // 돌려서 적 & 공격가능 물체가 있으면 트루
         for(int i = 0; i < colls.Length; ++i)
         {
-            Debug.Log(colls[i].gameObject.transform.position);
+            //Debug.Log(colls[i].gameObject.transform.position);
             if (colls[i].gameObject.layer == 9 || colls[i].gameObject.layer == 11)// Layer : Enemy 그리고 canAttackThing 아니 왜 안돼냐
             {
                 return true;
